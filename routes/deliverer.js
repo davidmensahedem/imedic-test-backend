@@ -57,7 +57,8 @@ router.get("/deliverer/:id", async (req, res) => {
         "avatar",
         "type",
         "vendorID",
-        "account"
+        "account",
+        "rate"
         
       ]),
     });
@@ -99,6 +100,7 @@ router.post("/deliverer", async (req, res) => {
   deliverer.avatar = req.body.avatar;
   deliverer.type = req.body.type;
   deliverer.vendorID = req.body.vendorID;
+  deliverer.rate = req.body.rate;
 
   let delivererPasswordSalt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_VALUE));
   deliverer.password = await bcrypt.hash(req.body.password, delivererPasswordSalt);
@@ -122,7 +124,8 @@ router.post("/deliverer", async (req, res) => {
           "type",
           "phonenumber",
           "vendorID",
-          "account"
+          "account",
+          "rate"
           
         ]),
       });
@@ -167,7 +170,8 @@ router.put("/deliverer/:id", async (req, res) => {
         phonenumber: req.body.phonenumber,
         type: req.body.type,
         vendorID: req.body.vendorID,
-        account: req.body.account
+        account: req.body.account,
+        rate: req.body.rate
         
       }
     );

@@ -12,7 +12,8 @@ const delivererSchema = new Schema({
   password: String,
   type: String,
   vendorID: { type: Schema.Types.ObjectId, ref: "Vendor" },
-  account: {type:Number,default:0}
+  account: {type:Number,default:0},
+  rate:{type:Number}
 
 });
 
@@ -25,7 +26,8 @@ delivererSchema.methods.generateAuthToken = function () {
       phonenumber: this.phonenumber,
       avatar: this.avatar,      
       type: this.type, 
-      vendorID: this.vendorID 
+      vendorID: this.vendorID,
+      rate: this.rate
      
     },
     process.env.JWT_SECRET_CODE
@@ -45,6 +47,7 @@ const validateDeliverer = function (deliverer) {
     password: Joi.string().min(3).required().label("Password"),
     type: Joi.string().min(3).required().label("Type"),
     vendorID: Joi.string().min(24).max(24).required().label("Vendor ID"),
+    rate: Joi.number().min(1).required().label("Rate")
 
   });
   return schema.validate(deliverer);
