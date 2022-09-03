@@ -18,7 +18,7 @@ router.get("/vendors", async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Successful",
-      vendors: _.pick(vendors,[
+      vendors: _.pick(vendors, [
         "name",
         "address",
         "rate",
@@ -28,7 +28,7 @@ router.get("/vendors", async (req, res) => {
         "type",
         "items",
         "account"
-      ]),
+      ])
     });
   } catch (error) {
     res.status(500).json({
