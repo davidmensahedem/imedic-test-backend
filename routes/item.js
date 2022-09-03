@@ -33,9 +33,9 @@ router.get("/items", async (req, res) => {
 
 // GET all items of a particular vendor
 
-router.get("/vendoritems/:vendorID", async (req, res) => {
+router.post("/vendoritems", async (req, res) => {
     try {
-      const items = await Item.find({vendorID:req.params.vendorID});
+      const items = await Item.find({vendorID:req.body.vendorID});
       if (Object.keys(items).length === 0) {
         return res.status(400).json({
           success: false,
@@ -54,6 +54,8 @@ router.get("/vendoritems/:vendorID", async (req, res) => {
       });
     }
   });
+
+
 
 
 
