@@ -30,6 +30,38 @@ router.get("/items", async (req, res) => {
   }
 });
 
+
+// GET all items of a particular vendor
+
+router.get("/vendoritems/:vendorID", async (req, res) => {
+    try {
+      const items = await Item.find({vendorID:req.params.vendorID});
+      if (Object.keys(items).length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "No item available",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Successful",
+        vendorItems: items,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Couldn't get Items",
+      });
+    }
+  });
+
+
+
+
+
+
+
+
 // GET a single item
 
 router.get("/item/:id", async (req, res) => {
