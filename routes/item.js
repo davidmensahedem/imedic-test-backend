@@ -67,7 +67,7 @@ router.post("/getItemCode", async (req, res) => {
           })
       }
     try {
-      let item = await Item.find({itemCode:req.body.itemCode}).populate({path:"vendorID"})
+      let item = await Item.find({itemCode:req.body.itemCode}).populate({path:"vendorID",select:"-password"})
       
       if (item === null) {
         return res.status(400).json({
