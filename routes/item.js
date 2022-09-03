@@ -91,7 +91,7 @@ router.post("/getItemCode", async (req, res) => {
           "vendorID",
           "itemCode",
           "prepTime",
-          "totalPrice"
+          item.totalPrice
           
         ]),
       });
