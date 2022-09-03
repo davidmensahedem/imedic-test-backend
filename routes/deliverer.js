@@ -70,6 +70,41 @@ router.get("/deliverer/:id", async (req, res) => {
   }
 });
 
+
+
+
+  // GET all delivery fee of a particular vendor
+
+  router.post("/deliveryfee", async (req, res) => {
+    try {
+      const deliverer = await Deliverer.find({vendorID:req.body.vendorID});
+      if (Object.keys(deliverer).length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "No deliverer available"
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Successful",
+        deliveryFee: _.pick(deliverer[0],[
+            "rate"
+        ]),
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Couldn't get the delivery fee",
+      });
+    }
+  });
+
+
+
+
+
+
+
 // POST --  create a deliverer
 
 router.post("/deliverer", async (req, res) => {

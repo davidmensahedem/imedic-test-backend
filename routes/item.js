@@ -39,7 +39,7 @@ router.post("/vendoritems", async (req, res) => {
       if (Object.keys(items).length === 0) {
         return res.status(400).json({
           success: false,
-          message: "sorry"
+          message: "No item available"
         });
       }
       res.status(200).json({
@@ -54,6 +54,8 @@ router.post("/vendoritems", async (req, res) => {
       });
     }
   });
+
+
 
 
 
