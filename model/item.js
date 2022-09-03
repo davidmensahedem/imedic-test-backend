@@ -17,6 +17,10 @@ const itemSchema = new Schema({
   
 });
 
+itemSchema.virtual('totalPrice').get(function() {
+  return this.price + ( (this.price) * (5/100) );
+});
+
 
 const Item = mongoose.model("Item", itemSchema);
 
