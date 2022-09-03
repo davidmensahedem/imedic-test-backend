@@ -56,8 +56,52 @@ router.post("/vendoritems", async (req, res) => {
   });
 
 
+  
+// Get a single item by itemCode
 
-
+router.post("/getItemCode", async (req, res) => {
+    if (!req.body.itemCode){
+          return res.status(400).json({
+          success: false,
+          message: "ID Required",
+          })
+      }
+    try {
+      let item = await Item.find({itemCode:req.body.itemCode}).populate({path:"vendorID"})
+      
+      if (item === null) {
+        return res.status(400).json({
+          success: false,
+          message: "No Item with this ID",
+        });
+      }
+  
+      return res.status(200).json({
+        success: true,
+        message: "Successful",
+        item: _.pick(item, [
+          "_id",
+          "name",
+          "price",
+          "description",
+          "discount",
+          "itemImage",
+          "tax",
+          "availability",
+          "vendorID",
+          "itemCode",
+          "prepTime"
+          
+        ]),
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Couldn't get Item",
+      });
+    }
+  });
+  
 
 
 
