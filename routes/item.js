@@ -79,6 +79,7 @@ router.post("/getItemCode", async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Successful",
+        totalPrice:item.totalPrice,
         item: _.pick(item[0], [
           "_id",
           "name",
@@ -91,7 +92,7 @@ router.post("/getItemCode", async (req, res) => {
           "vendorID",
           "itemCode",
           "prepTime",
-          item.totalPrice
+          
           
         ]),
       });
