@@ -79,7 +79,7 @@ router.post("/getItemCode", async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Successful",
-        item: _.pick(item, [
+        item: _.pick(item[0], [
           "_id",
           "name",
           "price",
