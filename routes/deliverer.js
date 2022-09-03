@@ -18,16 +18,7 @@ router.get("/deliverers", async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Successful",
-      deliverers: _.pick(deliverers,[
-        "name",
-        "email",
-        "phonenumber",
-        "avatar",
-        "type",
-        "vendorID",
-        "account",
-
-      ]),
+      deliverers: deliverers
     });
   } catch (error) {
     res.status(500).json({

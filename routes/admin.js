@@ -18,15 +18,7 @@ router.get("/admins", async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Successful",
-      admins: _.pick(admins,[
-        "name",
-        "email",
-        "phonenumber",
-        "address",
-        "avatar",
-        "rate",
-        "type",
-      ]),
+      admins: admins
     });
   } catch (error) {
     res.status(500).json({
