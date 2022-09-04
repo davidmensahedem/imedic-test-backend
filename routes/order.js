@@ -138,6 +138,7 @@ router.post("/order", async (req, res) => {
                 vendorID : req.body.vendorID,
                 delivererID : req.body.delivererID,
                 orderCode : generateOrderCode(), 
+                status:"Completed", 
                 orderTime : new Date()
                 .toLocaleTimeString([], {
                   hour: '2-digit',
@@ -157,12 +158,16 @@ router.post("/order", async (req, res) => {
 
             try {
 
+                var transactionTime = new Date()
+                .toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true
+                })
+                .toLowerCase()
 
-                let transactionTime = new Date().toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                }); 
+
+
 
                 // first transaction
                 let newTransaction = new Transaction({
