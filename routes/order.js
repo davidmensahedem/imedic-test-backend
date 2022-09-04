@@ -94,7 +94,7 @@ router.get("/oneorder/:id", async (req, res) => {
 
 router.post("/order", async (req, res) => {
 
-    const { error } = validateOrder(req.body);
+    // const { error } = validateOrder(req.body);
 
     if (error)
     return res.status(400).json({
