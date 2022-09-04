@@ -23,7 +23,6 @@ async function generateSanboxAccessAPI(){
            
         await axios.post(process.env.CREATE_USER_URL,{
             "providerCallbackHost": process.env.WEBHOOK_URL,
-            "targetEnvironment": process.env.SANDBOX_ENV
           },{
             headers: {
                 "Content-Type":"application/json",
