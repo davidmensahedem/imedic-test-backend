@@ -26,7 +26,6 @@ const validateOrder = function (order) {
   const schema = Joi.object({
 
     orderDetails:Joi.string().min(3).required().label("Order Details"),
-    orderCode:Joi.string().min(3).required().label("Order Code"),
     orderAmount:Joi.number().min(1).required().label("Order Amount"),
     orderAddress:Joi.string().min(3).required().label("Order Address"),
     customerID: Joi.string().min(24).max(24).required().label("Customer"),

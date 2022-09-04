@@ -16,6 +16,7 @@ const adminRoutes = require("./routes/admin.js");
 const itemRoutes = require("./routes/item.js");
 const orderRoutes = require("./routes/order.js");
 const transactionRoutes = require("./routes/transaction.js");
+const momoRoutes = require("./routes/momo.js");
 
 
 
@@ -51,6 +52,7 @@ app.use(process.env.IMEDIC_API_VERSION,adminRoutes);
 app.use(process.env.IMEDIC_API_VERSION,itemRoutes);
 app.use(process.env.IMEDIC_API_VERSION,orderRoutes);
 app.use(process.env.IMEDIC_API_VERSION,transactionRoutes);
+app.use(process.env.IMEDIC_API_VERSION,momoRoutes);
 
 
 
