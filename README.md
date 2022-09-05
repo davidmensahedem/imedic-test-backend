@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-    <a href="https://imedictest.bubbleapps.io/version-test">
+    <a href="https://imedictest.bubbleapps.io/version-test" target="_blank">
         <p align="center">The frontend was built with <strong>Bubble.io</strong></p>
     </a>
     
