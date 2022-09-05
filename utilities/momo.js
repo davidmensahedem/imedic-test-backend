@@ -175,9 +175,6 @@ async function getAccessToken(){
 }
 
 
-
-
-
 // Request to Pay and get transaction status
 
 async function getTransactionStatus(amount,momoNumber = "0558157666"){
@@ -242,6 +239,26 @@ async function getTransactionStatus(amount,momoNumber = "0558157666"){
 
 }
 
+// generate transaction code
+
+const generateTransactionCode = function () {
+          
+    // Declare a string variable which stores all string
+
+    var string = process.env.TRANSACTION_CODE_KEY;
+    let code = '';
+      
+    // Find the length of string
+    var len = string.length;
+    for (let i = 0; i <= 9; i++ ) {
+        code += string[Math.floor(Math.random() * len)];
+    }
+
+    return code;
+}
+
+
+
 
 
 
@@ -251,6 +268,7 @@ async function getTransactionStatus(amount,momoNumber = "0558157666"){
 module.exports.generateSanboxAccessAPI= generateSanboxAccessAPI;
 module.exports.getAccessToken= getAccessToken;
 module.exports.getTransactionStatus= getTransactionStatus;
+module.exports.generateTransactionCode= generateTransactionCode;
 
 
 

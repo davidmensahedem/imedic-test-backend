@@ -7,7 +7,8 @@ const { default: axios } = require("axios");
 const { Transaction } = require("../model/transaction");
 const { Vendor } = require("../model/vendor");
 const { Deliverer } = require("../model/deliverer");
-const {generateSanboxAccessAPI,getAccessToken,getTransactionStatus} = require("../utilities/momo");
+const { Admin } = require("../model/admin");
+const {generateSanboxAccessAPI,getAccessToken,getTransactionStatus,generateTransactionCode} = require("../utilities/momo");
 
 
 // GET all orders
@@ -154,6 +155,15 @@ router.post("/order", async (req, res) => {
         
             newOrder = await Order.findById(newOrder._id);
 
+            let admin = await Admin.findById(process.env.ADMIN_ID);
+            let adminShare = (admin.rate/100) * newOrder.orderAmount;
+            adminShare = adminShare.toFixed(2);
+            adminShare = parseFloat(adminShare);
+
+            await Admin.updateOne({_id:admin._id},{
+                account:(admin.account + adminShare)
+            });
+
 
 
             try {
@@ -187,8 +197,16 @@ router.post("/order", async (req, res) => {
 
                 // second transaction
                 let vendorID = await Vendor.findById(newOrder.vendorID);
+                
+                let vendorShare = (vendorID.rate/100) * newOrder.orderAmount;
+                vendorShare = vendorShare.toFixed(2);
+                vendorShare = parseFloat(vendorShare);
+                
 
-                let vendorShare = Math.round( (vendorID.rate/100) * newOrder.orderAmount, 2)
+                await Vendor.updateOne({_id:newOrder.vendorID},{
+                    account:(vendorID.account + vendorShare)
+                })
+
 
 
                 let secondTransaction = new Transaction({
@@ -197,7 +215,7 @@ router.post("/order", async (req, res) => {
                     to:newOrder.vendorID,
                     orderID:newOrder._id,
                     transactionAmount:vendorShare,
-                    transactionCode:transactionStatus.data.financialTransactionId,
+                    transactionCode:generateTransactionCode(),
                     time : transactionTime,
                     
                     status:transactionStatus.data.status
@@ -210,16 +228,24 @@ router.post("/order", async (req, res) => {
                 // third transaction
                 let delivererID = await Deliverer.findById(newOrder.delivererID);
 
-                let delivererShare = Math.round( (delivererID.rate/100) * newOrder.orderAmount, 2)
+                let delivererShare = (delivererID.rate/100) * newOrder.orderAmount;
+                delivererShare = delivererShare.toFixed(2);
+                delivererShare = parseFloat(delivererShare);
+                
+                
+
+                await Deliverer.updateOne({_id:newOrder.delivererID},{
+                    account:(delivererID.account + delivererShare)
+                })
 
 
                 let thirdTransaction = new Transaction({
 
                     from:"63126b86b3551da87a054ab4",
-                    to:newOrder.vendorID,
+                    to:newOrder.delivererID,
                     orderID:newOrder._id,
                     transactionAmount:delivererShare,
-                    transactionCode:transactionStatus.data.financialTransactionId,
+                    transactionCode:generateTransactionCode(),
                     time : transactionTime,
                     
                     status:transactionStatus.data.status
@@ -268,7 +294,7 @@ router.post("/order", async (req, res) => {
 
     } catch (error) {
             
-        console.log("could not add order")
+        console.log(error)
         
     }
 
