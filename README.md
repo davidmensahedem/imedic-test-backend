@@ -15,7 +15,10 @@
 </p>
 
 <p align="center">
-    The frontend was built with <strong>Bubble.io</strong>(<a href="https://imedictest.bubbleapps.io/version-test"></a>)
+    <a href="https://imedictest.bubbleapps.io/version-test">
+        <p align="center">The frontend was built with <strong>Bubble.io</strong></p>
+    </a>
+    
 </p>
 
 
