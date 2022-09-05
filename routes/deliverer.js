@@ -88,11 +88,10 @@ router.get("/deliverer/:id", async (req, res) => {
         success: true,
         message: "Successful",
         deliveryFee: _.pick(deliverer[0],[
-            "rate"
-        ]),
-        delivererID:_.pick(deliverer[0],[
+            "rate",
             "_id"
-        ]),
+        ])
+        
       });
     } catch (error) {
       res.status(500).json({
