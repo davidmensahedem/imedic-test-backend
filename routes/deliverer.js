@@ -90,6 +90,9 @@ router.get("/deliverer/:id", async (req, res) => {
         deliveryFee: _.pick(deliverer[0],[
             "rate"
         ]),
+        delivererID:_.pick(deliverer[0],[
+            "_id"
+        ]),
       });
     } catch (error) {
       res.status(500).json({
