@@ -250,7 +250,7 @@ const generateTransactionCode = function () {
       
     // Find the length of string
     var len = string.length;
-    for (let i = 0; i <= 9; i++ ) {
+    for (let i = 0; i < 9; i++ ) {
         code += string[Math.floor(Math.random() * len)];
     }
 
